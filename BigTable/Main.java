@@ -62,14 +62,14 @@ class Main {
         }
 
         if (currK < n) {// there are cars left to consider
-            if (is_space_available_left_side(currK, currS) && !visited[currK][currS-length[currK]]) {
+            if (is_space_available_left_side(currK, currS) && !visited[currK+1][currS-length[currK]]) {
                 currX[currK] = 1;
                 int newS = currS-length[currK];
                 BacktrackSolve(currK+1, newS);
                 visited[currK+1][newS] = true; //**//
             }
 
-            if (is_space_available_right_side(currK, currS) && !visited[currK][currS]) {
+            if (is_space_available_right_side(currK, currS) && !visited[currK+1][currS]) {
                 currX[currK] = 0;
                 BacktrackSolve(currK+1, currS);
                 visited[currK+1][currS] = true;
