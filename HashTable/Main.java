@@ -13,6 +13,7 @@ class Main {
     int[] currX;
     int[] bestX;
     int[] length;
+    Entry<Integer, Integer> ks = new Entry<Integer,Integer>(0, 0);
         
     Main(String data) {
         String[] info = data.split("\n");
@@ -62,20 +63,28 @@ class Main {
         }
 
         if (currK < n) {// there are cars left to consider new Entry<Integer, Integer> (currk, currS-length[currK])
-            Entry <Integer, Integer> partial_solution = new Entry <Integer, Integer> (currK+1, currS-length[currK]);
-            if (is_space_available_left_side(currK, currS) && !visited.containsKey(partial_solution)) {
+            ks.key = currK+1;
+            ks.value = currS-length[currK];
+            // Entry <Integer, Integer> partial_solution = new Entry <Integer, Integer> (currK+1, currS-length[currK]);
+            if (is_space_available_left_side(currK, currS) && !visited.containsKey(ks)) {
                 currX[currK] = 1;
                 int newS = currS-length[currK];
                 BacktrackSolve(currK+1, newS);
-                Entry <Integer, Integer> new_solution = new Entry <Integer, Integer> (currK+1, newS);
-                visited.put(new_solution, true); //**//
+                ks.key = currK+1;
+                ks.value = newS;
+                // Entry <Integer, Integer> new_solution = new Entry <Integer, Integer> (currK+1, newS);
+                visited.put(ks, true); //**//
             }
-            Entry <Integer, Integer> partial_solution_right = new Entry <Integer, Integer> (currK+1, currS);
-            if (is_space_available_right_side(currK, currS) && !visited.containsKey(partial_solution_right)) {
+            // Entry <Integer, Integer> partial_solution_right = new Entry <Integer, Integer> (currK+1, currS);
+            ks.key = currK+1;
+            ks.value = currS;
+            if (is_space_available_right_side(currK, currS) && !visited.containsKey(ks)) {
                 currX[currK] = 0;
                 BacktrackSolve(currK+1, currS);
-                Entry <Integer, Integer> new_solution = new Entry <Integer, Integer> (currK+1, currS);
-                visited.put(new_solution, true);
+                // Entry <Integer, Integer> new_solution = new Entry <Integer, Integer> (currK+1, currS);
+                ks.key = currK+1;
+                ks.value = currS;
+                visited.put(ks, true);
             }
         }
     }
@@ -157,7 +166,7 @@ class Main {
         Main problem;
         String data = "";
         String NEW_LINE = System.getProperty("line.separator");
-        Long before = System.currentTimeMillis();
+        // Long before = System.currentTimeMillis();
         while (scanner.hasNext()) {
             input += scanner.next()+"\n";
         }
@@ -184,7 +193,7 @@ class Main {
 
         }
         System.out.println(output);
-        Long after = System.currentTimeMillis();
-        System.out.println(after-before+" millisecondes");
+        // Long after = System.currentTimeMillis();
+        //System.out.println(after-before+" millisecondes");
     }
 }
