@@ -6,7 +6,6 @@ import java.util.Scanner;
  */
 class Main {
 
-
     int n = 10, L = 50;
     HashMap< Entry < Integer, Integer >, Boolean> visited;
     int bestK;
@@ -14,7 +13,11 @@ class Main {
     int[] bestX;
     int[] length;
     Entry<Integer, Integer> ks = new Entry<Integer,Integer>(0, 0);
-        
+
+    /**
+     * Constructor.
+     * @param data trucks to load
+     */    
     Main(String data) {
         String[] info = data.split("\n");
         n = info.length - 1;
@@ -33,7 +36,12 @@ class Main {
         bestK = -1;
     }
     
-
+    /**
+     * Computes the sum of the k first elements in an array
+     * @param length the array of the lengths of trucks to be loaded
+     * @param currK the amount of trucks already loaded
+     * @return sum of the k first elements in an array
+     */
     int kth_sum(int[] length, int currK) {
         int sum = 0;
         for (int i = 0; i < currK; i++) {
@@ -42,6 +50,12 @@ class Main {
         return sum;
     }
 
+    /**
+     * Checks if there's space available to load the next truck on the right hand side of the ferry 
+     * @param currK the amount of trucks already loaded
+     * @param currS the space available on the left hand side of the ferry
+     * @return true if space is available, false otherwise
+     */
     boolean is_space_available_right_side (int currK, int currS) {
         int total_length = kth_sum(length, currK);
         int occupied_space_left = L - currS;
@@ -50,10 +64,21 @@ class Main {
         return available_space_right >= length[currK];
     }
 
+    /**
+     * Checks if there's space available to load the next truck on the left hand side of the ferry
+     * @param currK the amount of trucks already loaded
+     * @param currS the space available on the left hand side of the ferry
+     * @return true if space is available, false otherwise
+     */
     boolean is_space_available_left_side (int currK, int currS) {
         return currS >= length[currK];
     }
 
+    /**
+     * Computes the maximum number of trucks that can be loaded onto the ferry
+     * @param currK number of trucks already loaded onto the ferry  
+     * @param currS the space available on the left hand side of the ferry
+     */
     void BacktrackSolve (int currK, int currS) {
         // currK cars have been added; currS space remains at the left side
         if (currK > bestK) {
@@ -62,26 +87,24 @@ class Main {
             System.arraycopy(currX, 0, bestX, 0, bestK);
         }
 
-        if (currK < n) {// there are cars left to consider new Entry<Integer, Integer> (currk, currS-length[currK])
+        if (currK < n) {        // there are cars left to consider new Entry<Integer, Integer> (currk, currS-length[currK])
             ks.key = currK+1;
             ks.value = currS-length[currK];
-            // Entry <Integer, Integer> partial_solution = new Entry <Integer, Integer> (currK+1, currS-length[currK]);
+        
             if (is_space_available_left_side(currK, currS) && !visited.containsKey(ks)) {
                 currX[currK] = 1;
                 int newS = currS-length[currK];
                 BacktrackSolve(currK+1, newS);
                 ks.key = currK+1;
                 ks.value = newS;
-                // Entry <Integer, Integer> new_solution = new Entry <Integer, Integer> (currK+1, newS);
                 visited.put(ks, true); //**//
             }
-            // Entry <Integer, Integer> partial_solution_right = new Entry <Integer, Integer> (currK+1, currS);
+
             ks.key = currK+1;
             ks.value = currS;
             if (is_space_available_right_side(currK, currS) && !visited.containsKey(ks)) {
                 currX[currK] = 0;
                 BacktrackSolve(currK+1, currS);
-                // Entry <Integer, Integer> new_solution = new Entry <Integer, Integer> (currK+1, currS);
                 ks.key = currK+1;
                 ks.value = currS;
                 visited.put(ks, true);
@@ -89,6 +112,10 @@ class Main {
         }
     }
 
+    /**
+     * Transforms the solution into a more readable format
+     * @return the solution of a given ferry-loading problem
+     */
     String solution() {
         String sol = "";
         if (bestK == 0) {
@@ -166,7 +193,6 @@ class Main {
         Main problem;
         String data = "";
         String NEW_LINE = System.getProperty("line.separator");
-        // Long before = System.currentTimeMillis();
         while (scanner.hasNext()) {
             input += scanner.next()+"\n";
         }
@@ -193,7 +219,5 @@ class Main {
 
         }
         System.out.println(output);
-        // Long after = System.currentTimeMillis();
-        //System.out.println(after-before+" millisecondes");
     }
 }

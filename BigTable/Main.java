@@ -13,7 +13,11 @@ class Main {
     int[] currX;
     int[] bestX;
     int[] length;
-        
+    
+    /**
+     * Constructor.
+     * @param data trucks to load
+     */    
     Main(String data) {
         String[] info = data.split("\n");
         n = info.length - 1;
@@ -32,7 +36,12 @@ class Main {
         bestK = -1;
     }
 
-
+    /**
+     * Computes the sum of the k first elements in an array
+     * @param length the array of the lengths of trucks to be loaded
+     * @param currK the amount of trucks already loaded
+     * @return sum of the k first elements in an array
+     */
     int kth_sum(int[] length, int currK) {
         int sum = 0;
         for (int i = 0; i < currK; i++) {
@@ -41,6 +50,12 @@ class Main {
         return sum;
     }
 
+    /**
+     * Checks if there's space available to load the next truck on the right hand side of the ferry 
+     * @param currK the amount of trucks already loaded
+     * @param currS the space available on the left hand side of the ferry
+     * @return true if space is available, false otherwise
+     */
     boolean is_space_available_right_side (int currK, int currS) {
         int total_length = kth_sum(length, currK);
         int occupied_space_left = L - currS;
@@ -49,10 +64,21 @@ class Main {
         return available_space_right >= length[currK];
     }
 
+    /**
+     * Checks if there's space available to load the next truck on the left hand side of the ferry
+     * @param currK the amount of trucks already loaded
+     * @param currS the space available on the left hand side of the ferry
+     * @return true if space is available, false otherwise
+     */
     boolean is_space_available_left_side (int currK, int currS) {
         return currS >= length[currK];
     }
 
+    /**
+     * Computes the maximum number of trucks that can be loaded onto the ferry
+     * @param currK number of trucks already loaded onto the ferry  
+     * @param currS the space available on the left hand side of the ferry
+     */
     void BacktrackSolve (int currK, int currS) {
         // currK cars have been added; currS space remains at the left side
         if (currK > bestK) {
@@ -77,6 +103,10 @@ class Main {
         }
     }
 
+    /**
+     * Transforms the solution into a more readable format
+     * @return the solution of a given ferry-loading problem
+     */
     String solution() {
         String sol = "";
         if (bestK == 0) {
