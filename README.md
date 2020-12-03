@@ -10,7 +10,7 @@ The solution implemented with a 2-D array passed all the OnlineJudge tests and g
 ![BigTable solution runtime](https://github.com/kandloic/Ferry-Loading/blob/main/BigTablePerformance.png)
 
 ## Part 2 - HashTable Solution Validation
-The solution implemented with a hashtable passed all the OnlineJudge tests and gave a faster runtime
+The solution implemented with a hashtable passed all the OnlineJudge tests and gave a **faster** runtime
 ![BigTable solution runtime](https://github.com/kandloic/Ferry-Loading/blob/main/HashTablePerformance.png)
 
 ## Part 3 - Hashtable Implementation & Design
