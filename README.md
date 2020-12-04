@@ -7,11 +7,11 @@ For this assignment, we explored two alternatives to memorize the different visi
 
 ## Part 1 - BigTable Solution Validation 
 The solution implemented with a 2-D array passed all the OnlineJudge tests and gave the following runtime
-<img href="BigTablePerformance.png">
+![BigTable solution runtime](BigTablePerformance.png)
 
 ## Part 2 - HashTable Solution Validation
 The solution implemented with a hashtable passed all the OnlineJudge tests and gave a **faster** runtime
-<img href="HashTablePerformance.png">
+![BigTable solution runtime](HashTablePerformance.png)
 
 ## Part 3 - Hashtable Implementation & Design
 - For this assingment, I decided to use Java's built-in HashMap ADT.
