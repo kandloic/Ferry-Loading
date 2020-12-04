@@ -168,7 +168,7 @@ class Main {
 
         @Override
         public int hashCode() {
-            return key.hashCode() * 31 + value.hashCode();
+            return key.hashCode() * 37 + value.hashCode();
         }
 
         @Override
